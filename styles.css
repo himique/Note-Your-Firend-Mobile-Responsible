@@ -227,18 +227,35 @@ input[type="reset"] {
     font-size: 15px;
 }
 
+.card_isolate {
+    overflow-y: scroll;
+   
+    height: 360px;
+}
+
+.card_isolate::-webkit-scrollbar {
+    display: none;
+}
+
+.card_isolate {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+}
 
 @media screen and (max-width: 600px) {
     .card_list:hover {
         opacity: 1;
     }
+
     .add_button:hover {
         opacity: 1;
     }
+
     .remove_button:hover {
         opacity: 1;
     }
-    
+
     body {
         background-color: var(--main-color);
     }
@@ -247,6 +264,7 @@ input[type="reset"] {
         padding: 0px;
         margin: 0px;
     }
+
     .container {
         display: flex;
         background-color: var(--main-color);
@@ -254,8 +272,8 @@ input[type="reset"] {
         width: auto;
         height: fit-content;
         border-radius: 0px;
-       
-    
+
+
     }
-   
+
 }
