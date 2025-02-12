@@ -265,6 +265,10 @@ input[type="reset"] {
         margin: 0px;
     }
 
+    .container_left {
+        height: auto;
+    }
+
     .container {
         display: flex;
         background-color: var(--main-color);
@@ -275,9 +279,10 @@ input[type="reset"] {
 
 
     }
-    .card_isolate {
-        height: 620px;
 
+    .card_isolate {
+
+        height: 420px;
     }
 
 }
