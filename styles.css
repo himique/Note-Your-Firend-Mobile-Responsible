@@ -229,8 +229,8 @@ input[type="reset"] {
 
 .card_isolate {
     overflow-y: scroll;
-   
-    height: 360px;
+
+    height: 386px;
 }
 
 .card_isolate::-webkit-scrollbar {
@@ -273,6 +273,10 @@ input[type="reset"] {
         height: fit-content;
         border-radius: 0px;
 
+
+    }
+    .card_isolate {
+        height: 620px;
 
     }
 
