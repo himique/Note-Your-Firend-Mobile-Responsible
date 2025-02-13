@@ -367,12 +367,15 @@ input[type="reset"] {
     padding: 5px 10px;
     color: white;
 }
-input{
+
+input {
     font-size: 16px;
 }
-input::placeholder{
+
+input::placeholder {
     font-size: 16px;
 }
+
 .dialog_add_buttoms {
     display: flex;
     position: relative;
@@ -382,14 +385,17 @@ input::placeholder{
     grid-template-columns: repeat(2, auto);
     justify-content: space-between;
 }
-.welcome_h2{
+
+.welcome_h2 {
     text-align: center;
 }
-.welcome_p{
+
+.welcome_p {
     text-align: center;
     font-weight: 600;
     font-size: 15px;
 }
+
 @media screen and (max-width: 1372px) {
     .card_list:hover {
         opacity: 1;
@@ -428,28 +434,39 @@ input::placeholder{
     }
 
     .card_isolate {
-
+        width: 100%;
         height: 420px;
     }
 
     .addCard_dialog {
-        max-width: 70%;
+
+        padding: 0rem;
+        max-width: 90%;
+        background-color: white;
+        justify-content: center;
+        align-items: center;
+        outline: none;
     }
+
     .add_button {
         height: 30px;
         line-height: 30px;
         width: 30px;
         font-size: 25px;
-    
+
     }
+
     .remove_button {
         height: 30px;
         line-height: 30px;
         width: 30px;
         margin: 7px;
         font-size: 25px;
-      
-    
+
+
+    }
+
+    .form {
+        padding: 1.1rem;
     }
 }
-
