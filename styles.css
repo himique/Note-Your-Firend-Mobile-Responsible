@@ -130,7 +130,8 @@ input[type="reset"] {
     height: fit-content;
     width: fit-content;
 }
-.share_button{
+
+.share_button {
     align-items: center;
     justify-content: center;
     height: 25px;
@@ -145,11 +146,13 @@ input[type="reset"] {
     cursor: pointer;
 
 }
-.share_button img{
+
+.share_button img {
     height: 18px;
     width: 18px;
 }
-.search_button{
+
+.search_button {
     align-items: center;
     justify-content: center;
     height: 25px;
@@ -164,11 +167,12 @@ input[type="reset"] {
     cursor: pointer;
 
 }
-.buttons_menu
-.search_button img{
+
+.search_button img {
     height: 14px;
     width: 14px;
 }
+
 .add_button {
     height: 25px;
     line-height: 25px;
@@ -241,20 +245,22 @@ input[type="reset"] {
     margin: 6px 3px;
     display: grid;
     grid-template-columns: 1fr 1fr 0.1fr 10px 0.1fr;
-  
-    
+
+
 }
+
 .add_button:nth-child(1) {
-  grid-column: 1;
+    grid-column: 1;
 }
 
 .share_button:nth-child(2) {
-  grid-column: 3;
+    grid-column: 3;
 }
 
 .search_button:nth-child(3) {
-  grid-column: 5;
+    grid-column: 5;
 }
+
 .description_container {
     width: 100%;
     height: fit-content;
@@ -447,6 +453,7 @@ input[type=number]::-webkit-inner-spin-button {
     font-weight: 600;
     font-size: 15px;
 }
+
 .form_button_change:active {
     opacity: 0.7;
 }
@@ -456,26 +463,46 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 1372px) {
+    .share_button {
+        height: 30px;
+        line-height: 30px;
+        width: 30px;
+    }
 
-   
+    .share_button img {
+        height: 20px;
+        width: 20px;
+    }
+
+    .search_button {
+        height: 30px;
+        line-height: 30px;
+        width: 30px;
+    }
+
+    .search_button img {
+        height: 16px;
+        width: 16px;
+    }
+
 
     .card_list:hover {
         opacity: 1;
     }
 
-   
+
 
     .add_button:hover {
         opacity: 1;
     }
 
-    
+
 
     .remove_button:hover {
         opacity: 1;
     }
 
-   
+
 
     body {
         background-color: var(--main-color);
@@ -537,6 +564,6 @@ input[type=number]::-webkit-inner-spin-button {
     .form {
         padding: 1.1rem;
     }
-  
+
 
 }
