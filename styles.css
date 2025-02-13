@@ -421,5 +421,21 @@ input[type="reset"] {
     .addCard_dialog {
         max-width: 70%;
     }
+    .add_button {
+        height: 30px;
+        line-height: 30px;
+        width: 30px;
+        font-size: 25px;
+    
+    }
+    .remove_button {
+        height: 30px;
+        line-height: 30px;
+        width: 30px;
+        margin: 7px;
+        font-size: 25px;
+      
+    
+    }
 }
 
