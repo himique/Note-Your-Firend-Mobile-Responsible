@@ -422,7 +422,7 @@ input[type=number]::-webkit-inner-spin-button {
 
     .container_left {
         height: fit-content;
-        width: fit-content;
+        width: 100%;
 
     }
 
