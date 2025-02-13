@@ -130,7 +130,45 @@ input[type="reset"] {
     height: fit-content;
     width: fit-content;
 }
+.share_button{
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    line-height: 25px;
+    width: 25px;
+    font-size: 20px;
+    border-radius: 50%;
+    user-select: none;
+    background-color: black;
+    color: white;
+    text-align: center;
+    cursor: pointer;
 
+}
+.share_button img{
+    height: 18px;
+    width: 18px;
+}
+.search_button{
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    line-height: 25px;
+    width: 25px;
+    font-size: 20px;
+    border-radius: 50%;
+    user-select: none;
+    background-color: black;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+
+}
+.buttons_menu
+.search_button img{
+    height: 14px;
+    width: 14px;
+}
 .add_button {
     height: 25px;
     line-height: 25px;
@@ -167,7 +205,7 @@ input[type="reset"] {
     cursor: pointer;
     position: absolute;
     right: 0;
-    z-index: 999;
+    z-index: 9;
 
 
 }
@@ -202,11 +240,21 @@ input[type="reset"] {
 .buttons_menu {
     margin: 6px 3px;
     display: grid;
-    grid-column-gap: 50px;
-    grid-template-columns: repeat(1, auto);
-    justify-content: space-between;
+    grid-template-columns: 1fr 1fr 0.1fr 10px 0.1fr;
+  
+    
+}
+.add_button:nth-child(1) {
+  grid-column: 1;
 }
 
+.share_button:nth-child(2) {
+  grid-column: 3;
+}
+
+.search_button:nth-child(3) {
+  grid-column: 5;
+}
 .description_container {
     width: 100%;
     height: fit-content;
@@ -415,34 +463,26 @@ input[type=number]::-webkit-inner-spin-button {
         opacity: 1;
     }
 
-    .card_list:active {
-        opacity: 0.7;
-    }
+   
 
     .add_button:hover {
         opacity: 1;
     }
 
-    .add_button:active {
-        opacity: 0.7;
-    }
+    
 
     .remove_button:hover {
         opacity: 1;
     }
 
-    .remove_button:active {
-        opacity: 0.7;
-    }
+   
 
     body {
         background-color: var(--main-color);
-    }
-
-    body {
         padding: 0px;
         margin: 0px;
     }
+
 
     .container_left {
         height: fit-content;
@@ -497,12 +537,6 @@ input[type=number]::-webkit-inner-spin-button {
     .form {
         padding: 1.1rem;
     }
-    .form_button_change:active {
-        opacity: 0.7;
-    }
-
-    .form_button_cancel:active {
-        opacity: 0.7;
-    }
+  
 
 }
