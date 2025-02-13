@@ -4,26 +4,56 @@ let html = document.querySelector(".card_isolate");
 let DescHtml = document.querySelector(".description_container");
 let dialog = document.querySelector(".addCard_dialog");
 let btnContainer = document.querySelector(".dialog_add_buttoms");
-let dialogAdd = document.querySelector(".addCard_dialog");
 let menuAddContainer = document.querySelector(".buttons_menu");
 
+let shareCardDialog = document.querySelector(".shareCard_dialog");
+let btnShareContainer = document.querySelector(".dialog_share_buttons");
+
 let wrapper = document.querySelector(".form");
+let shareWrapper = document.querySelector(".form_share");
+let shareBtn = document.querySelector(".share_button");
 
 cardList.renderCard(Database.mainArray, html);
+//Share
+
+  menuAddContainer.addEventListener('click', function (event) {
+    if (shareBtn.contains(event.target)) {
+      shareCardDialog.showModal();
+    }
+  });
+  btnShareContainer.addEventListener('click', function (event) {
+    if (event.target.classList.contains('form_button_close')) {//here
+      shareCardDialog.close();
+    }
+  });
+  shareCardDialog.addEventListener('click', function (event) {//here
+    if (!shareWrapper.contains(event.target)) {
+      shareCardDialog.close();
+    }
+  });
+  btnShareContainer.addEventListener('click', function (event) {
+
+    if (event.target.classList.contains('form_button_close')) {
+      let shareInput = document.querySelector(".input_share").value;
+      cardList.renderCard(Database.mainArray, html);
+      document.querySelector(".input_name").value = "";
+      dialog.close();
+    }
+  });
 
 //Add card
 menuAddContainer.addEventListener('click', function (event) {
   if (event.target.classList.contains('add_button')) {
     dialog.showModal();
   }
-})
+});
 
 btnContainer.addEventListener('click', function (event) {
   if (event.target.classList.contains('form_button_cancel')) {
     dialog.close();
   }
 });
-dialogAdd.addEventListener('click', function (event) {
+dialog.addEventListener('click', function (event) {
   if (!wrapper.contains(event.target)) {
     dialog.close();
   }
@@ -69,4 +99,3 @@ html.addEventListener('click', function (event) {
     cardList.renderDesc(found, DescHtml);
   }
 });
-

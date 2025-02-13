@@ -399,7 +399,6 @@ input[type="reset"] {
     color: white;
     outline: none;
 }
-
 .input_desc::placeholder {
     color: white;
 }
@@ -443,7 +442,65 @@ input[type=number]::-webkit-inner-spin-button {
     grid-template-columns: repeat(2, auto);
     justify-content: space-between;
 }
+.shareCard_dialog {
+    border: none !important;
+    border-radius: calc(5px * 3.74);
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    padding: 0rem;
+    max-width: 20%;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+}
+.form_share {
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 2.1rem;
+    outline: none;
+}
+.input_share {
+    border: none !important;
+    border-radius: calc(5px * 3.74);
+    background-color: var(--main-color);
+    padding: 7px 20px;
+    margin: 6px 0px;
+    width: fit-content;
+    color: white;
+    outline: none;
+}
 
+.input_share::placeholder {
+    color: white;
+}
+
+.input_share:focus {
+    opacity: 0.7;
+}
+
+.form_button_copy {
+    background-color: var(--main-color);
+    border-radius: calc(5px * 3.74);
+    padding: 5px 10px;
+    color: white;
+}
+
+.form_button_close {
+    background-color: var(--main-color);
+    border-radius: calc(5px * 3.74);
+    padding: 5px 10px;
+    color: white;
+}
+.dialog_share_buttons {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    display: grid;
+    margin: 12px 0px 0px 0px;
+    grid-template-columns: repeat(2, auto);
+    
+}
 .welcome_h2 {
     text-align: center;
 }
@@ -564,6 +621,16 @@ input[type=number]::-webkit-inner-spin-button {
     .form {
         padding: 1.1rem;
     }
+    .shareCard_dialog {
 
-
+        padding: 0rem;
+        max-width: 90%;
+        background-color: white;
+        justify-content: center;
+        align-items: center;
+        outline: none;
+    }
+    .form_share {
+        padding: 1.1rem;
+    }
 }
