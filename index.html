@@ -10,10 +10,11 @@
 </head>
 
 <body>
+
     <div class="container">
         <div class="container_left">
             <div class="buttons_menu">
-                <div class="add_button" onclick="toAddCard()">+</div>
+                <div class="add_button" >+</div>
             </div>
             <div class="card_isolate">
                 <div class="card_container">
@@ -54,7 +55,29 @@
             </div>
         </div>
     </div>
+    <dialog class="addCard_dialog">
+        <form class="form">
+            <h2 class="tittle_dialog_add">Add card</h2>
+            <input class="input_name" placeholder="Name" type="text">
 
+
+            <input class="input_secondName" placeholder="Second name" type="text">
+
+
+            <input class="input_age" type="number" placeholder="Age" type="text">
+
+
+            <input class="input_emp" placeholder="Employment" type="text">
+
+
+            <input class="input_desc" placeholder="Description" type="text">
+            <div class="dialog_add_buttoms">
+                <button class="form_button_change" type="button" >Change</button>
+                <button class="form_button_cancel" type="button" >Cancel</button>
+            </div>
+
+        </form>
+    </dialog>
 
     <script src="./js/model.js"></script>
     <script src="./js/view.js"></script>
