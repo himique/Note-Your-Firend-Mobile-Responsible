@@ -247,19 +247,27 @@ input[type="reset"] {
     border: none !important;
     border-radius: calc(5px * 3.74);
     box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    padding: 1.6rem;
-    max-width: 400px;
+    padding: 0rem;
+    max-width: 20%;
     background-color: white;
+    justify-content: center;
+    align-items: center;
 }
-.form{
- width: fit-content;   
+
+.form {
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 2.1rem;
 }
+
 .input_name {
     border: none !important;
     border-radius: calc(5px * 3.74);
     background-color: var(--main-color);
     padding: 7px 20px;
     margin: 6px 0px;
+    width: fit-content;
     color: white;
     outline: none;
 }
@@ -357,12 +365,18 @@ input[type="reset"] {
     padding: 5px 10px;
     color: white;
 }
-.dialog_add_buttoms{
+
+.dialog_add_buttoms {
     display: flex;
     position: relative;
-    justify-content:center;
+    justify-content: center;
+    display: grid;
+    margin: 12px 0px 0px 0px;
+    grid-template-columns: repeat(2, auto);
+    justify-content: space-between;
 }
-@media screen and (max-width: 600px) {
+
+@media screen and (max-width: 1372px) {
     .card_list:hover {
         opacity: 1;
     }
@@ -404,4 +418,8 @@ input[type="reset"] {
         height: 420px;
     }
 
+    .addCard_dialog {
+        max-width: 70%;
+    }
 }
+
