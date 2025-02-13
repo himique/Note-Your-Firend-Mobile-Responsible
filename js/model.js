@@ -1,7 +1,7 @@
 let Database = {
   mainArray: [
-    { name: "Artem", secondName: "Bondarenko", age: 22, emp: "CEO of Microsoft", id: 1, desc: "Im Professional photografer" },
-    { name: "Hans", secondName: "Mueller", age: 43, emp: "CEO of Google", id: 2, desc: "I love Google" },
+    { name: "Artem", secondName: "Bondarenko", age: 22, emp: "Developer", id: 1, desc: "I do, what i wanna do" },
+    { name: "Hans", secondName: "Mueller", age: 43, emp: "Waiter", id: 2, desc: "I love be a waiter" },
 
   ],
 

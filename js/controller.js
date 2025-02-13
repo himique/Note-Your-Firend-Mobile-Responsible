@@ -4,13 +4,14 @@ let html = document.querySelector(".card_isolate");
 let DescHtml = document.querySelector(".description_container");
 let dialog = document.querySelector(".addCard_dialog");
 let btnContainer = document.querySelector(".dialog_add_buttoms");
+let dialogAdd = document.querySelector(".addCard_dialog");
 let menuAddContainer = document.querySelector(".buttons_menu");
 
-
+let wrapper = document.querySelector(".form");
 
 cardList.renderCard(Database.mainArray, html);
 
-
+//Add card
 menuAddContainer.addEventListener('click', function (event) {
   if (event.target.classList.contains('add_button')) {
     dialog.showModal();
@@ -22,7 +23,11 @@ btnContainer.addEventListener('click', function (event) {
     dialog.close();
   }
 });
-
+dialogAdd.addEventListener('click', function (event) {
+  if (!wrapper.contains(event.target)) {
+    dialog.close();
+  }
+});
 btnContainer.addEventListener('click', function (event) {
 
   if (event.target.classList.contains('form_button_change')) {
@@ -35,7 +40,7 @@ btnContainer.addEventListener('click', function (event) {
     let newId = Database.setId(Database.mainArray);
     Database.add(nameInput, nameSecondInput, ageInput, empInput, newId, descInput);
     cardList.renderCard(Database.mainArray, html);
-  
+
     document.querySelector(".input_name").value = "";
     document.querySelector(".input_secondName").value = "";
     document.querySelector(".input_age").value = "";
@@ -45,14 +50,7 @@ btnContainer.addEventListener('click', function (event) {
   }
 });
 
-// function toAddCard() {
-
-//   let newId = Database.setId(Database.mainArray);
-
-//   Database.add(nameInput, nameSecondInput, ageInput, empInput, newId, newDesdescInputcription);
-//   cardList.renderCard(Database.mainArray, html);
-// }
-//Remove card
+//Remove
 html.addEventListener('click', function (event) {
   if (event.target.classList.contains('remove_button')) {
     const cardId = parseInt(event.target.dataset.cardId); // Получаем ID из атрибута data кнопки

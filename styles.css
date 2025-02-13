@@ -5,7 +5,7 @@
     --text-color-light: rgba(255, 255, 255, 0.74);
     --text-color-medium: rgba(255, 255, 255, 0.589);
     --font-family: "DM Sans", sans-serif;
-    --font-size: 14px;
+    --font-size: 16px;
 }
 
 body {
@@ -252,6 +252,7 @@ input[type="reset"] {
     background-color: white;
     justify-content: center;
     align-items: center;
+    outline: none;
 }
 
 .form {
@@ -259,6 +260,7 @@ input[type="reset"] {
     width: fit-content;
     height: fit-content;
     padding: 2.1rem;
+    outline: none;
 }
 
 .input_name {
@@ -365,7 +367,12 @@ input[type="reset"] {
     padding: 5px 10px;
     color: white;
 }
-
+input{
+    font-size: 16px;
+}
+input::placeholder{
+    font-size: 16px;
+}
 .dialog_add_buttoms {
     display: flex;
     position: relative;
@@ -375,7 +382,14 @@ input[type="reset"] {
     grid-template-columns: repeat(2, auto);
     justify-content: space-between;
 }
-
+.welcome_h2{
+    text-align: center;
+}
+.welcome_p{
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+}
 @media screen and (max-width: 1372px) {
     .card_list:hover {
         opacity: 1;
