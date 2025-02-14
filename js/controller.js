@@ -12,90 +12,148 @@ let btnShareContainer = document.querySelector(".dialog_share_buttons");
 let wrapper = document.querySelector(".form");
 let shareWrapper = document.querySelector(".form_share");
 let shareBtn = document.querySelector(".share_button");
+let inputShare = document.querySelector(".input_share");
 
 cardList.renderCard(Database.mainArray, html);
 //Share
+let Cards = {
+  shareCard: {
+    shareToShow() {
+      menuAddContainer.addEventListener('click', function (event) {
+        if (shareBtn.contains(event.target)) {
+          shareCardDialog.showModal();
+        }
+      })
 
-  menuAddContainer.addEventListener('click', function (event) {
-    if (shareBtn.contains(event.target)) {
-      shareCardDialog.showModal();
-    }
-  });
-  btnShareContainer.addEventListener('click', function (event) {
-    if (event.target.classList.contains('form_button_close')) {//here
-      shareCardDialog.close();
-    }
-  });
-  shareCardDialog.addEventListener('click', function (event) {//here
-    if (!shareWrapper.contains(event.target)) {
-      shareCardDialog.close();
-    }
-  });
-  btnShareContainer.addEventListener('click', function (event) {
+    },
+    shareToClose() {
+      btnShareContainer.addEventListener('click', function (event) {
+        if (event.target.classList.contains('form_button_close')) {//here
+          shareCardDialog.close();
+        }
+      });
 
-    if (event.target.classList.contains('form_button_close')) {
-      let shareInput = document.querySelector(".input_share").value;
-      cardList.renderCard(Database.mainArray, html);
-      document.querySelector(".input_name").value = "";
-      dialog.close();
-    }
-  });
+    },
+    shareToCloseByScreen() {
+      shareCardDialog.addEventListener('click', function (event) {//here
+        if (!shareWrapper.contains(event.target)) {
+          shareCardDialog.close();
+        }
+      });
 
-//Add card
-menuAddContainer.addEventListener('click', function (event) {
-  if (event.target.classList.contains('add_button')) {
-    dialog.showModal();
-  }
-});
+    },
+    shareMain(arr) {
+      menuAddContainer.addEventListener('click', function (event) {
+        if (shareBtn.contains(event.target)) {
+          inputShare.value = JSON.stringify(arr);
+          // JSON.parse(searchInput.value);
+        }
+      });
 
-btnContainer.addEventListener('click', function (event) {
-  if (event.target.classList.contains('form_button_cancel')) {
-    dialog.close();
-  }
-});
-dialog.addEventListener('click', function (event) {
-  if (!wrapper.contains(event.target)) {
-    dialog.close();
-  }
-});
-btnContainer.addEventListener('click', function (event) {
+    },
+    copyBtn() {
+      shareCardDialog.addEventListener('click', function (event) {
+        if (event.target.classList.contains('form_button_copy')) {
+          inputShare.select();
+          inputShare.setSelectionRange(0, 99999); // For mobile devices
+          // Copy the text inside the text field
+          navigator.clipboard.writeText(inputShare.value);
+        }
+      });
 
-  if (event.target.classList.contains('form_button_change')) {
+    },
+    setDataBtn() {
+      shareCardDialog.addEventListener('click', function (event) {
+        if (event.target.classList.contains('form_button_import')) {
+          Database.mainArray = JSON.parse(inputShare.value);
+          cardList.renderCard(Database.mainArray, html);
+          shareCardDialog.close();
+        }
+      });
+    },
+  },
+  addCard: {
+    addToShow() {
+      menuAddContainer.addEventListener('click', function (event) {
+        if (event.target.classList.contains('add_button')) {
+          dialog.showModal();
+        }
+      });
+    },
+    addToClose() {
+      btnContainer.addEventListener('click', function (event) {
+        if (event.target.classList.contains('form_button_cancel')) {
+          dialog.close();
+        }
+      });
+    },
+    AddToCloseByScreen() {
+      dialog.addEventListener('click', function (event) {
+        if (!wrapper.contains(event.target)) {
+          dialog.close();
+        }
+      });
+    },
+    addMain() {
+      btnContainer.addEventListener('click', function (event) {
 
-    let nameInput = document.querySelector(".input_name").value;
-    let nameSecondInput = document.querySelector(".input_secondName").value;
-    let ageInput = document.querySelector(".input_age").value;
-    let empInput = document.querySelector(".input_emp").value;
-    let descInput = document.querySelector(".input_desc").value;
-    let newId = Database.setId(Database.mainArray);
-    Database.add(nameInput, nameSecondInput, ageInput, empInput, newId, descInput);
-    cardList.renderCard(Database.mainArray, html);
+        if (event.target.classList.contains('form_button_change')) {
 
-    document.querySelector(".input_name").value = "";
-    document.querySelector(".input_secondName").value = "";
-    document.querySelector(".input_age").value = "";
-    document.querySelector(".input_emp").value = "";
-    document.querySelector(".input_desc").value = "";
-    dialog.close();
-  }
-});
+          let nameInput = document.querySelector(".input_name").value;
+          let nameSecondInput = document.querySelector(".input_secondName").value;
+          let ageInput = document.querySelector(".input_age").value;
+          let empInput = document.querySelector(".input_emp").value;
+          let descInput = document.querySelector(".input_desc").value;
+          let newId = Database.setId(Database.mainArray);
+          Database.add(nameInput, nameSecondInput, ageInput, empInput, newId, descInput);
+          cardList.renderCard(Database.mainArray, html);
 
-//Remove
-html.addEventListener('click', function (event) {
-  if (event.target.classList.contains('remove_button')) {
-    const cardId = parseInt(event.target.dataset.cardId); // Получаем ID из атрибута data кнопки
-    if (cardId) {
-      Database.removeObjectById(Database.mainArray, cardId);
-      cardList.renderCard(Database.mainArray, html);
-      cardList.renderDesc(Database.mainArray, DescHtml);
-    }
-  }
-});
-//Update Full Description
-html.addEventListener('click', function (event) {
-  const cardId = parseInt(event.target.dataset.cardButtonId);
-  if (cardId) {
-    let found = Database.findObjectById(Database.mainArray, cardId);
-    cardList.renderDesc(found, DescHtml);
-  }
-});
+          document.querySelector(".input_name").value = "";
+          document.querySelector(".input_secondName").value = "";
+          document.querySelector(".input_age").value = "";
+          document.querySelector(".input_emp").value = "";
+          document.querySelector(".input_desc").value = "";
+          dialog.close();
+        }
+      });
+
+    },
+  },
+  removeBtn() {
+    html.addEventListener('click', function (event) {
+      if (event.target.classList.contains('remove_button')) {
+        const cardId = parseInt(event.target.dataset.cardId); // Получаем ID из атрибута data кнопки
+        if (cardId) {
+          Database.removeObjectById(Database.mainArray, cardId);
+          cardList.renderCard(Database.mainArray, html);
+          cardList.renderDesc(Database.mainArray, DescHtml);
+        }
+      }
+    });
+  },
+  descCard() {
+    html.addEventListener('click', function (event) {
+      const cardId = parseInt(event.target.dataset.cardButtonId);
+      if (cardId) {
+        let found = Database.findObjectById(Database.mainArray, cardId);
+        cardList.renderDesc(found, DescHtml);
+      }
+    });
+  },
+
+}
+
+Cards.addCard.addToShow();
+Cards.addCard.addToClose();
+Cards.addCard.AddToCloseByScreen();
+Cards.addCard.addMain();
+
+Cards.shareCard.shareToShow();
+Cards.shareCard.shareToClose();
+Cards.shareCard.shareToCloseByScreen();
+Cards.shareCard.shareMain(Database.mainArray);
+Cards.shareCard.copyBtn();
+Cards.shareCard.setDataBtn();
+
+Cards.removeBtn();
+Cards.descCard();

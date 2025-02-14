@@ -4,7 +4,7 @@ let Database = {
     { name: "Hans", secondName: "Mueller", age: 43, emp: "Waiter", id: 2, desc: "I love be a waiter" },
 
   ],
-
+  
   removeObjectById(arr, IdFound) {
     const index = arr.findIndex(x => x.id === IdFound);
     if (index > -1) {
