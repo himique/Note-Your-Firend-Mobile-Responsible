@@ -45,7 +45,7 @@ let Cards = {
     shareMain(arr) {
       menuAddContainer.addEventListener('click', function (event) {
         if (shareBtn.contains(event.target)) {
-          inputShare.value = JSON.stringify(arr);
+          document.querySelector(".input_share").value = JSON.stringify(arr);
           // JSON.parse(searchInput.value);
         }
       });
@@ -62,12 +62,41 @@ let Cards = {
       });
 
     },
+    // setDataBtn() {
+    //   shareCardDialog.addEventListener('click', function (event) {
+    //     if (event.target.classList.contains('form_button_import')) {
+    //       Database.mainArray = JSON.parse(inputShare.value);
+    //       cardList.renderCard(Database.mainArray, html);
+    //       document.querySelector(".input_share").value = JSON.stringify(Database.mainArray);
+    //       shareCardDialog.close();
+    //     }
+    //   });
+    // },
     setDataBtn() {
       shareCardDialog.addEventListener('click', function (event) {
         if (event.target.classList.contains('form_button_import')) {
-          Database.mainArray = JSON.parse(inputShare.value);
-          cardList.renderCard(Database.mainArray, html);
-          shareCardDialog.close();
+          try {
+            const newData = JSON.parse(inputShare.value); // Получаем новые данные из inputShare
+    
+            if (Array.isArray(newData)) {
+              // Если JSON.parse вернул массив, заменяем существующий массив новым
+              Database.mainArray = [...newData]; // Используем spread syntax для создания нового массива
+            } else if (typeof newData === 'object' && newData !== null) {
+              // Если JSON.parse вернул одиночный объект, создаем массив, содержащий только этот объект
+              Database.mainArray = [newData]; // Заменяем существующий массив массивом с одним элементом
+            } else {
+              console.error("Недопустимый формат данных в поле 'Поделиться'. Ожидается массив или объект.");
+              return; // Прекращаем выполнение функции
+            }
+    
+            cardList.renderCard(Database.mainArray, html); // Обновляем отображение карточек
+            document.querySelector(".input_share").value = JSON.stringify(Database.mainArray); // Обновляем значение поля "Поделиться"
+            shareCardDialog.close();
+    
+          } catch (error) {
+            console.error("Ошибка при разборе JSON:", error);
+            // Добавьте сюда обработку ошибки (например, отображение сообщения пользователю)
+          }
         }
       });
     },
