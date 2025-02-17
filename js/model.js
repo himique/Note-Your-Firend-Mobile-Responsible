@@ -100,13 +100,10 @@ let Database = {
   add(name, secondName, age, emp, id, desc) {
     this.mainArray.push({ name: name, secondName: secondName, age: age, emp: emp, id: id, desc: desc });
   },
+  deleteAllItems(arr){
+    for(let i = -1; i < arr.length; i++){
+      arr.pop();
+    }  
+  },
 
 }
-
-
-// Database.add("qwer", "qwe", 22, Database.setId(Database.mainArray), 2);
-// Example of using prompts
-
-// Database.findObjectById(Database.mainArray,2)
-console.log(Database.mainArray)
-

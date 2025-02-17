@@ -65,38 +65,28 @@ let Cards = {
     // setDataBtn() {
     //   shareCardDialog.addEventListener('click', function (event) {
     //     if (event.target.classList.contains('form_button_import')) {
-    //       Database.mainArray = JSON.parse(inputShare.value);
+    //       let Newitems = JSON.parse(inputShare.value);
+    //       Database.deleteAllItems(Database.mainArray);
+    //       Database.mainArray.push(Newitems);
     //       cardList.renderCard(Database.mainArray, html);
-    //       document.querySelector(".input_share").value = JSON.stringify(Database.mainArray);
+    //       let shareArray = JSON.stringify(Database.mainArray);
+    //       document.querySelector(".input_share").value = [...shareArray];
     //       shareCardDialog.close();
     //     }
     //   });
     // },
-    setDataBtn() {
+
+    setDataBtn(arr) {
       shareCardDialog.addEventListener('click', function (event) {
         if (event.target.classList.contains('form_button_import')) {
-          try {
-            const newData = JSON.parse(inputShare.value); // Получаем новые данные из inputShare
-    
-            if (Array.isArray(newData)) {
-              // Если JSON.parse вернул массив, заменяем существующий массив новым
-              Database.mainArray = [...newData]; // Используем spread syntax для создания нового массива
-            } else if (typeof newData === 'object' && newData !== null) {
-              // Если JSON.parse вернул одиночный объект, создаем массив, содержащий только этот объект
-              Database.mainArray = [newData]; // Заменяем существующий массив массивом с одним элементом
-            } else {
-              console.error("Недопустимый формат данных в поле 'Поделиться'. Ожидается массив или объект.");
-              return; // Прекращаем выполнение функции
-            }
-    
-            cardList.renderCard(Database.mainArray, html); // Обновляем отображение карточек
-            document.querySelector(".input_share").value = JSON.stringify(Database.mainArray); // Обновляем значение поля "Поделиться"
-            shareCardDialog.close();
-    
-          } catch (error) {
-            console.error("Ошибка при разборе JSON:", error);
-            // Добавьте сюда обработку ошибки (например, отображение сообщения пользователю)
-          }
+
+          const Newitems = JSON.parse(inputShare.value); // Получаем новые данные из inputShare
+          Database.deleteAllItems(Database.mainArray);
+          arr.push(...Newitems);
+          cardList.renderCard(arr, html); // Обновляем отображение карточек
+          document.querySelector(".input_share").value = JSON.stringify(arr); // Обновляем значение поля "Поделиться"
+          cardList.renderDesc(Database.mainArray, DescHtml);
+          shareCardDialog.close();
         }
       });
     },
@@ -182,7 +172,7 @@ Cards.shareCard.shareToClose();
 Cards.shareCard.shareToCloseByScreen();
 Cards.shareCard.shareMain(Database.mainArray);
 Cards.shareCard.copyBtn();
-Cards.shareCard.setDataBtn();
+Cards.shareCard.setDataBtn(Database.mainArray);
 
 Cards.removeBtn();
 Cards.descCard();
