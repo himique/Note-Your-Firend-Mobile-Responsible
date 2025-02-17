@@ -544,6 +544,84 @@ input[type=number]::-webkit-inner-spin-button {
     opacity: 0.9;
 }
 
+
+
+.dialog_search_buttons {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin: 12px 0px 0px 0px;
+}
+
+.searchCard_dialog {
+    border: none !important;
+    border-radius: calc(5px * 3.74);
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    padding: 0rem;
+    max-width: 20%;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+}
+
+.form_search {
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 2.1rem;
+    outline: none;
+}
+
+.input_search {
+    border: none !important;
+    border-radius: calc(5px * 3.74);
+    background-color: var(--main-color);
+    padding: 7px 20px;
+    margin: 6px 0px;
+    width: fit-content;
+    color: white;
+    outline: none;
+}
+
+.input_search::placeholder {
+    color: white;
+}
+
+.input_search:focus {
+    opacity: 0.7;
+}
+
+.form_button_search {
+    background-color: var(--main-color);
+    border-radius: calc(5px * 3.74);
+    padding: 5px 10px;
+    color: white;
+}
+
+.form_button_search:active {
+    opacity: 0.9;
+}
+
+.form_button_search:hover {
+    opacity: 0.7;
+}
+
+.form_button_search_close {
+    background-color: var(--main-color);
+    border-radius: calc(5px * 3.74);
+    padding: 5px 10px;
+    color: white;
+}
+
+.form_button_search_close:active {
+    opacity: 0.9;
+}
+
+.form_button_search_close:hover {
+    opacity: 0.7;
+}
+
 @media screen and (max-width: 1372px) {
     .share_button {
         height: 30px;
@@ -574,10 +652,11 @@ input[type=number]::-webkit-inner-spin-button {
         height: 16px;
         width: 16px;
     }
+
     .search_button:hover {
         opacity: 1;
     }
-    
+
     .search_button:active {
         opacity: 1;
     }
@@ -626,6 +705,16 @@ input[type=number]::-webkit-inner-spin-button {
     .card_isolate {
         width: 100%;
         height: 420px;
+    }
+
+    .searchCard_dialog {
+
+        padding: 0rem;
+        max-width: 90%;
+        background-color: white;
+        justify-content: center;
+        align-items: center;
+        outline: none;
     }
 
     .addCard_dialog {

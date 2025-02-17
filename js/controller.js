@@ -9,6 +9,14 @@ let menuAddContainer = document.querySelector(".buttons_menu");
 let shareCardDialog = document.querySelector(".shareCard_dialog");
 let btnShareContainer = document.querySelector(".dialog_share_buttons");
 
+let searchCardDialog = document.querySelector(".searchCard_dialog");
+let formSearch = document.querySelector(".form_search");
+let InputSearch = document.querySelector(".input_search");
+let searchBtn = document.querySelector(".form_button_search");
+let searchButtons = document.querySelector(".dialog_search_buttons");
+let searchCloseBtn = document.querySelector(".form_button_search_close");
+let searchMenuBtn = document.querySelector(".search_button");
+
 let wrapper = document.querySelector(".form");
 let shareWrapper = document.querySelector(".form_share");
 let shareBtn = document.querySelector(".share_button");
@@ -62,20 +70,6 @@ let Cards = {
       });
 
     },
-    // setDataBtn() {
-    //   shareCardDialog.addEventListener('click', function (event) {
-    //     if (event.target.classList.contains('form_button_import')) {
-    //       let Newitems = JSON.parse(inputShare.value);
-    //       Database.deleteAllItems(Database.mainArray);
-    //       Database.mainArray.push(Newitems);
-    //       cardList.renderCard(Database.mainArray, html);
-    //       let shareArray = JSON.stringify(Database.mainArray);
-    //       document.querySelector(".input_share").value = [...shareArray];
-    //       shareCardDialog.close();
-    //     }
-    //   });
-    // },
-
     setDataBtn(arr) {
       shareCardDialog.addEventListener('click', function (event) {
         if (event.target.classList.contains('form_button_import')) {
@@ -159,6 +153,32 @@ let Cards = {
       }
     });
   },
+  searchCard: {
+    searchToShow() {
+      menuAddContainer.addEventListener('click', function (event) {
+        if (searchMenuBtn.contains(event.target)) {
+          searchCardDialog.showModal();
+        }
+      })
+    },
+    searchToClose() {
+      searchButtons.addEventListener('click', function (event) {
+        if (event.target.classList.contains('form_button_search_close')) {
+          searchCardDialog.close();
+        }
+      })
+    },
+    searchToCloseByScreen() {
+      searchCardDialog.addEventListener('click', function (event) {
+        if (!formSearch.contains(event.target)) {
+          searchCardDialog.close();
+        }
+      });
+    },
+    searchMain() {
+
+    },
+  },
 
 }
 
@@ -173,6 +193,10 @@ Cards.shareCard.shareToCloseByScreen();
 Cards.shareCard.shareMain(Database.mainArray);
 Cards.shareCard.copyBtn();
 Cards.shareCard.setDataBtn(Database.mainArray);
+
+Cards.searchCard.searchToShow();
+Cards.searchCard.searchToClose();
+Cards.searchCard.searchToCloseByScreen();
 
 Cards.removeBtn();
 Cards.descCard();
