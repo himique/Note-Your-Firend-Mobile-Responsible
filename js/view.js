@@ -72,7 +72,12 @@ const cardList = {
     let textDesc2 = document.createElement("h3");
     let textDesc3 = document.createElement("h3");
     let textDesc4 = document.createElement("p");
+    let changeMenu = document.createElement("div");
+    let changeButton = document.createElement("div");
 
+    changeMenu.classList.add("change_menu");
+    changeButton.classList.add("change_button");
+    changeButton.dataset.changeId = arr.id;
     textDesc1.classList.add("desc_name");
     textDesc2.classList.add("desc_age");
     textDesc3.classList.add("desc_enp");
@@ -85,6 +90,7 @@ const cardList = {
     descriptionEmployment.classList.add("description_employment");
     descriptionLastAction.classList.add("description_last_action");
 
+    changeButton.insertAdjacentHTML("beforeend", `<img src="./images/ppeenn.svg" alt="change">`);
     textDesc1.insertAdjacentHTML("beforeend", `${arr.name} ${arr.secondName}`);
     textDesc2.insertAdjacentHTML("beforeend", `Age: ${arr.age}`);
     textDesc3.insertAdjacentHTML("beforeend", `${arr.emp}`);
@@ -94,6 +100,9 @@ const cardList = {
     descriptionBirthday.appendChild(textDesc2);
     descriptionEmployment.appendChild(textDesc3);
     descriptionLastAction.appendChild(textDesc4);
+
+    changeMenu.appendChild(changeButton);
+    description.appendChild(changeMenu);
     description.appendChild(descriptionName);
     description.appendChild(descriptionBirthday);
     description.appendChild(descriptionEmployment);

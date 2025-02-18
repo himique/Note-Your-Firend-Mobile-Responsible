@@ -41,7 +41,12 @@ let Database = {
         item.age = newCount;
       }
     },
-
+    emp(arr, productName, newCount) {
+      const item = arr.find(item => item.id === productName);
+      if (item) {
+        item.emp = newCount;
+      }
+    },
     desc(arr, productName, newCount) {
       const item = arr.find(item => item.id === productName);
       if (item) {

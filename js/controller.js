@@ -17,6 +17,17 @@ let searchButtons = document.querySelector(".dialog_search_buttons");
 let searchCloseBtn = document.querySelector(".form_button_search_close");
 let searchMenuBtn = document.querySelector(".search_button");
 
+let changeDialog = document.querySelector(".changeCard_dialog");
+let formChange = document.querySelector(".form_change");
+let inputNameChange = document.querySelector(".input_name_change");
+let inputSecondNameChange = document.querySelector(".input_secondName_change");
+let inputAgeChange = document.querySelector(".input_age_change");
+let inputEmpChange = document.querySelector(".input_emp_change");
+let inputDescChange = document.querySelector(".input_desc_change");
+let buttonsChange = document.querySelector(".dialog_change_buttons");
+let descChangeButtonsMenu = document.querySelector(".change_menu");
+let changeButton = document.querySelector(".change_button");
+
 let wrapper = document.querySelector(".form");
 let shareWrapper = document.querySelector(".form_share");
 let shareBtn = document.querySelector(".share_button");
@@ -175,11 +186,83 @@ let Cards = {
         }
       });
     },
-    searchMain() {
+    // searchMain() {
+
+    // },
+  },
+  changeDesc: {
+    changeToShow(arr) {
+      DescHtml.addEventListener('click', function (event) {
+        let target = event.target;
+        // Проходим по родителям, пока не дойдем до card_isolate или не найдем change_button
+        while (target && !target.classList.contains('description')) {
+          if (target.classList.contains('change_button')) {
+            const cardId = parseInt(target.dataset.changeId);
+            let ArrayFind = Database.findObjectById(arr, cardId);
+            inputNameChange.value = ArrayFind.name;
+            inputSecondNameChange.value = ArrayFind.secondName;
+            inputAgeChange.value = ArrayFind.age;
+            inputEmpChange.value = ArrayFind.emp;
+            inputDescChange.value = ArrayFind.desc;
+            changeDialog.showModal();
+            return;
+          }
+          target = target.parentNode;
+        }
+      });
+    },
+    changeToClose() {
+  
+      buttonsChange.addEventListener('click', function (event) {
+        let target = event.target;
+        while (target && !target.classList.contains('formChange')) {
+          if (target.classList.contains('form_button_change_cancel')) {
+            changeDialog.close();
+            return;
+          }
+          target = target.parentNode;
+        }
+      });
+    },
+    // changeToCloseByScreen() {
+    //   changeDialog.addEventListener('click', function (event) {
+    //     if (!wrapper.contains(event.target)) {
+    //       changeDialog.close();
+    //     }
+    //   });
+    // },
+    changeMain(arr) {
+      buttonsChange.addEventListener('click', function (event) {
+        if (event.target.classList.contains('form_button_change_update')) {
+          let target = event.target;
+          const cardId = parseInt(target.dataset.changeId);
+          let find = Database.findObjectById(arr, cardId);
+          console.log(find);
+          let nameInput = inputNameChange.value;
+          // let nameSecondInput = inputSecondNameChange.value;
+          // let ageInput = inputAgeChange.value;
+          // let empInput = inputEmpChange.value;
+          // let descInput = inputDescChange.value;
+
+
+          Database.update.name(ArrayFind, cardId, nameInput);
+          // Database.update.secondName(ArrayFind, cardId, nameSecondInput);
+          // Database.update.age(ArrayFind, cardId, ageInput);
+          // Database.update.desc(ArrayFind, cardId, empInput);
+          // Database.update.emp(ArrayFind, cardId, descInput);
+          cardList.renderCard(arr, html);
+          cardList.renderDesc(arr, DescHtml);
+          nameInput.value = "";
+          nameSecondInput.value = "";
+          ageInput.value = "";
+          empInput.value = "";
+          descInput.value = "";
+          changeDialog.close();
+        }
+      });
 
     },
   },
-
 }
 
 Cards.addCard.addToShow();
@@ -198,5 +281,11 @@ Cards.searchCard.searchToShow();
 Cards.searchCard.searchToClose();
 Cards.searchCard.searchToCloseByScreen();
 
+Cards.changeDesc.changeToShow(Database.mainArray);
+// Cards.changeDesc.changeToClose();
+// Cards.changeDesc.changeToCloseByScreen();
+Cards.changeDesc.changeMain(Database.mainArray);
+
 Cards.removeBtn();
 Cards.descCard();
+console.log(Database.findObjectById(Database.mainArray, 1));

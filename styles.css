@@ -622,7 +622,246 @@ input[type=number]::-webkit-inner-spin-button {
     opacity: 0.7;
 }
 
+.change_button {
+    height: 25px;
+    line-height: 25px;
+    width: 25px;
+    margin: 7px;
+    font-size: 20px;
+    user-select: none;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    z-index: 9;
+
+
+}
+
+.change_button img {
+    height: 14px;
+    width: 14px;
+}
+
+.change_button:hover {
+    opacity: 0.7;
+}
+
+.change_button:active {
+    opacity: 0.9;
+}
+
+.change_menu {
+    position: relative;
+    margin: 0px;
+    display: grid;
+    width: 100%;
+    height: 18px;
+    grid-column-gap: 50px;
+    grid-template-columns: repeat(1, auto);
+    justify-content: space-between;
+}
+.search_button:hover {
+    opacity: 0.7;
+}
+
+.search_button:active {
+    opacity: 0.9;
+}
+
+
+
+.dialog_change_buttons {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin: 12px 0px 0px 0px;
+}
+
+.changeCard_dialog {
+    border: none !important;
+    border-radius: calc(5px * 3.74);
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    padding: 0rem;
+    max-width: 20%;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+}
+
+.form_change {
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 2.1rem;
+    outline: none;
+}
+
+.input_name_change {
+    border: none !important;
+    border-radius: calc(5px * 3.74);
+    background-color: var(--main-color);
+    padding: 7px 20px;
+    margin: 6px 0px;
+    width: fit-content;
+    color: white;
+    outline: none;
+}
+
+.input_name_change::placeholder {
+    color: white;
+}
+
+.input_name_change:focus {
+    opacity: 0.7;
+}
+.input_secondName_change {
+    border: none !important;
+    border-radius: calc(5px * 3.74);
+    background-color: var(--main-color);
+    padding: 7px 20px;
+    margin: 6px 0px;
+    width: fit-content;
+    color: white;
+    outline: none;
+}
+
+.input_secondName_change::placeholder {
+    color: white;
+}
+
+.input_secondName_change:focus {
+    opacity: 0.7;
+}
+.input_age_change {
+    border: none !important;
+    border-radius: calc(5px * 3.74);
+    background-color: var(--main-color);
+    padding: 7px 20px;
+    margin: 6px 0px;
+    width: fit-content;
+    color: white;
+    outline: none;
+}
+
+.input_age_change::placeholder {
+    color: white;
+}
+
+.input_age_change:focus {
+    opacity: 0.7;
+}
+.input_emp_change {
+    border: none !important;
+    border-radius: calc(5px * 3.74);
+    background-color: var(--main-color);
+    padding: 7px 20px;
+    margin: 6px 0px;
+    width: fit-content;
+    color: white;
+    outline: none;
+}
+
+.input_emp_change::placeholder {
+    color: white;
+}
+
+.input_emp_change:focus {
+    opacity: 0.7;
+}
+.input_desc_change {
+    border: none !important;
+    border-radius: calc(5px * 3.74);
+    background-color: var(--main-color);
+    padding: 7px 20px;
+    margin: 6px 0px;
+    width: fit-content;
+    color: white;
+    outline: none;
+}
+
+.input_desc_change::placeholder {
+    color: white;
+}
+
+.input_desc_change:focus {
+    opacity: 0.7;
+}
+
+.form_button_change_update {
+    background-color: var(--main-color);
+    border-radius: calc(5px * 3.74);
+    padding: 5px 10px;
+    color: white;
+}
+
+.form_button_change_update:active {
+    opacity: 0.9;
+}
+
+.form_button_change_update:hover {
+    opacity: 0.7;
+}
+
+.form_button_change_cancel {
+    background-color: var(--main-color);
+    border-radius: calc(5px * 3.74);
+    padding: 5px 10px;
+    color: white;
+}
+
+.form_button_change_cancel:active {
+    opacity: 0.9;
+}
+
+.form_button_change_cancel:hover {
+    opacity: 0.7;
+}
 @media screen and (max-width: 1372px) {
+    .changeCard_dialog {
+
+        padding: 0rem;
+        max-width: 90%;
+        background-color: white;
+        justify-content: center;
+        align-items: center;
+        outline: none;
+    }
+    .form_button_change_update:active {
+        opacity: 1;
+    }
+    
+    .form_button_change_update:hover {
+        opacity: 1;
+    }
+    .form_button_change_cancel:active {
+        opacity: 1;
+    }
+    
+    .form_button_change_cancel:hover {
+        opacity: 1;
+    }
+    .change_button:hover {
+        opacity: 1;
+    }
+
+    .change_button:active {
+        opacity: 1;
+    }
+    .change_button {
+        height: 30px;
+        line-height: 30px;
+        width: 30px;
+    }
+
+    .change_button img {
+        height: 15px;
+        width: 15px;
+    }
     .share_button {
         height: 30px;
         line-height: 30px;
@@ -717,6 +956,14 @@ input[type=number]::-webkit-inner-spin-button {
         outline: none;
     }
 
+    .form_button_search:active {
+        opacity: 1;
+    }
+
+    .form_button_search:hover {
+        opacity: 1;
+    }
+
     .addCard_dialog {
 
         padding: 0rem;
@@ -761,5 +1008,13 @@ input[type=number]::-webkit-inner-spin-button {
 
     .form_share {
         padding: 1.1rem;
+    }
+
+    .form_button_search_close:active {
+        opacity: 1;
+    }
+
+    .form_button_search_close:hover {
+        opacity: 1;
     }
 }
