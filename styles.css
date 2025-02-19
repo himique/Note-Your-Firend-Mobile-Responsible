@@ -677,7 +677,7 @@ input[type=number]::-webkit-inner-spin-button {
 .dialog_change_buttons {
     display: flex;
     position: relative;
-    justify-content: center;
+    justify-content: space-between;
     margin: 12px 0px 0px 0px;
 }
 

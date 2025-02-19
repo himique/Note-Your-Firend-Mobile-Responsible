@@ -198,6 +198,8 @@ let Cards = {
         while (target && !target.classList.contains('description')) {
           if (target.classList.contains('change_button')) {
             const cardId = parseInt(target.dataset.changeId);
+            
+            console.log(cardId);
             let ArrayFind = Database.findObjectById(arr, cardId);
             inputNameChange.value = ArrayFind.name;
             inputSecondNameChange.value = ArrayFind.secondName;
@@ -212,10 +214,10 @@ let Cards = {
       });
     },
     changeToClose() {
-  
-      buttonsChange.addEventListener('click', function (event) {
+
+      formChange.addEventListener('click', function (event) {
         let target = event.target;
-        while (target && !target.classList.contains('formChange')) {
+        while (target && !target.classList.contains('changeCard_dialog')) {
           if (target.classList.contains('form_button_change_cancel')) {
             changeDialog.close();
             return;
@@ -224,39 +226,46 @@ let Cards = {
         }
       });
     },
-    // changeToCloseByScreen() {
-    //   changeDialog.addEventListener('click', function (event) {
-    //     if (!wrapper.contains(event.target)) {
-    //       changeDialog.close();
-    //     }
-    //   });
-    // },
+    changeToCloseByScreen() {
+      changeDialog.addEventListener('click', function (event) {
+        if (!formChange.contains(event.target)) {
+          changeDialog.close();
+        }
+      });
+    },
     changeMain(arr) {
       buttonsChange.addEventListener('click', function (event) {
+        let target = event.target;
         if (event.target.classList.contains('form_button_change_update')) {
-          let target = event.target;
           const cardId = parseInt(target.dataset.changeId);
-          let find = Database.findObjectById(arr, cardId);
-          console.log(find);
-          let nameInput = inputNameChange.value;
+          console.log("Id " + cardId)
+          let ArrayFind = Database.findObjectById(arr, cardId);
+          console.log(ArrayFind);
+
+          const nameField = JSON.stringify(inputNameChange.value);
+          const secondNameField = JSON.stringify(inputNameChange.value);
+          const ageField = JSON.stringify(inputNameChange.value);
+          const empField = JSON.stringify(inputNameChange.value);
+          const descField = JSON.stringify(inputNameChange.value);
+          console.log(nameField);
           // let nameSecondInput = inputSecondNameChange.value;
           // let ageInput = inputAgeChange.value;
           // let empInput = inputEmpChange.value;
           // let descInput = inputDescChange.value;
 
 
-          Database.update.name(ArrayFind, cardId, nameInput);
-          // Database.update.secondName(ArrayFind, cardId, nameSecondInput);
-          // Database.update.age(ArrayFind, cardId, ageInput);
-          // Database.update.desc(ArrayFind, cardId, empInput);
-          // Database.update.emp(ArrayFind, cardId, descInput);
+          Database.update.name(ArrayFind, ArrayFind.id, nameField);
+          Database.update.secondName(ArrayFind, ArrayFind.id, secondNameField);
+          Database.update.age(ArrayFind, ArrayFind.id, ageField);
+          Database.update.desc(ArrayFind, ArrayFind.id, empField);
+          Database.update.emp(ArrayFind, ArrayFind.id, descField);
           cardList.renderCard(arr, html);
           cardList.renderDesc(arr, DescHtml);
-          nameInput.value = "";
-          nameSecondInput.value = "";
-          ageInput.value = "";
-          empInput.value = "";
-          descInput.value = "";
+          // nameInput.value = "";
+          // nameSecondInput.value = "";
+          // ageInput.value = "";
+          // empInput.value = "";
+          // descInput.value = "";
           changeDialog.close();
         }
       });
@@ -282,10 +291,10 @@ Cards.searchCard.searchToClose();
 Cards.searchCard.searchToCloseByScreen();
 
 Cards.changeDesc.changeToShow(Database.mainArray);
-// Cards.changeDesc.changeToClose();
-// Cards.changeDesc.changeToCloseByScreen();
+Cards.changeDesc.changeToClose();
+Cards.changeDesc.changeToCloseByScreen();
 Cards.changeDesc.changeMain(Database.mainArray);
 
 Cards.removeBtn();
 Cards.descCard();
-console.log(Database.findObjectById(Database.mainArray, 1));
+console.log(Database.findObjectById(Database.mainArray, 2));
