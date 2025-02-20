@@ -201,7 +201,6 @@ let Cards = {
             const cardId = parseInt(target.dataset.changeId);
 
             updateButton.dataset.changeId = cardId;
-            console.log(cardId);
             let ArrayFind = Database.findObjectById(arr, cardId);
             inputNameChange.value = ArrayFind.name;
             inputSecondNameChange.value = ArrayFind.secondName;
@@ -242,24 +241,21 @@ let Cards = {
       formChange.addEventListener('click', function (event) {
         if (event.target.classList.contains('form_button_change_update')) {
           const card = parseInt(event.target.dataset.changeId);
-          console.log("Id " + card)
           let ArrayFind = Database.findObjectById(arr, card);
-          console.log(ArrayFind);
 
-          const nameField = JSON.stringify(inputNameChange.value);
-          const secondNameField = JSON.stringify(inputSecondNameChange.value);
-          const ageField = JSON.stringify(inputAgeChange.value);
-          const empField = JSON.stringify(inputEmpChange.value);
-          const descField = JSON.stringify(inputDescChange.value);
-          console.log(nameField);
+          const nameField = inputNameChange.value
+          const secondNameField = inputSecondNameChange.value;
+          const ageField = inputAgeChange.value;
+          const empField = inputEmpChange.value;
+          const descField = inputDescChange.value;
           
 
 
-          Database.update.name(Database.mainArray, ArrayFind.id, nameField);
-          Database.update.secondName(Database.mainArray, ArrayFind.id, secondNameField);
-          Database.update.age(Database.mainArray, ArrayFind.id, ageField);
-          Database.update.desc(Database.mainArray, ArrayFind.id, empField);
-          Database.update.emp(Database.mainArray, ArrayFind.id, descField);
+          Database.update.name(arr, ArrayFind.id, nameField);
+          Database.update.secondName(arr, ArrayFind.id, secondNameField);
+          Database.update.age(arr, ArrayFind.id, ageField);
+          Database.update.desc(arr, ArrayFind.id, descField);
+          Database.update.emp(arr, ArrayFind.id, empField);
 
           cardList.renderCard(arr, html);
           cardList.renderDesc(arr, DescHtml);
