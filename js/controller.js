@@ -196,7 +196,7 @@ let Cards = {
       DescHtml.addEventListener('click', function (event) {
         let target = event.target;
         // Проходим по родителям, пока не дойдем до card_isolate или не найдем change_button
-        while (target && !target.classList.contains('description')) {
+        while (target && !target.classList.contains('description_container')) {
           if (target.classList.contains('change_button')) {
             const cardId = parseInt(target.dataset.changeId);
 
