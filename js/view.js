@@ -74,12 +74,15 @@ const cardList = {
     let textDesc4 = document.createElement("p");
     let changeMenu = document.createElement("div");
     let changeButton = document.createElement("div");
+    let formButtonUpdate = document.createElement("button");
 
-
+    
+    formButtonUpdate.classList.add("form_button_change_update");
+    formButtonUpdate.dataset.changeUpdate = arr.id;
     changeMenu.classList.add("change_menu");
     changeButton.classList.add("change_button");
     changeButton.dataset.changeId = arr.id;
-    
+
     textDesc1.classList.add("desc_name");
     textDesc2.classList.add("desc_age");
     textDesc3.classList.add("desc_enp");

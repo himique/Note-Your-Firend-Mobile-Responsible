@@ -27,6 +27,7 @@ let inputDescChange = document.querySelector(".input_desc_change");
 let buttonsChange = document.querySelector(".dialog_change_buttons");
 let descChangeButtonsMenu = document.querySelector(".change_menu");
 let changeButton = document.querySelector(".change_button");
+let updateButton = changeDialog.querySelector('.form_button_change_update');
 
 let wrapper = document.querySelector(".form");
 let shareWrapper = document.querySelector(".form_share");
@@ -198,7 +199,8 @@ let Cards = {
         while (target && !target.classList.contains('description')) {
           if (target.classList.contains('change_button')) {
             const cardId = parseInt(target.dataset.changeId);
-            
+
+            updateButton.dataset.changeId = cardId;
             console.log(cardId);
             let ArrayFind = Database.findObjectById(arr, cardId);
             inputNameChange.value = ArrayFind.name;
@@ -209,8 +211,10 @@ let Cards = {
             changeDialog.showModal();
             return;
           }
+
           target = target.parentNode;
         }
+
       });
     },
     changeToClose() {
@@ -234,40 +238,40 @@ let Cards = {
       });
     },
     changeMain(arr) {
-      buttonsChange.addEventListener('click', function (event) {
-        let target = event.target;
+
+      formChange.addEventListener('click', function (event) {
         if (event.target.classList.contains('form_button_change_update')) {
-          const cardId = parseInt(target.dataset.changeId);
-          console.log("Id " + cardId)
-          let ArrayFind = Database.findObjectById(arr, cardId);
+          const card = parseInt(event.target.dataset.changeId);
+          console.log("Id " + card)
+          let ArrayFind = Database.findObjectById(arr, card);
           console.log(ArrayFind);
 
           const nameField = JSON.stringify(inputNameChange.value);
-          const secondNameField = JSON.stringify(inputNameChange.value);
-          const ageField = JSON.stringify(inputNameChange.value);
-          const empField = JSON.stringify(inputNameChange.value);
-          const descField = JSON.stringify(inputNameChange.value);
+          const secondNameField = JSON.stringify(inputSecondNameChange.value);
+          const ageField = JSON.stringify(inputAgeChange.value);
+          const empField = JSON.stringify(inputEmpChange.value);
+          const descField = JSON.stringify(inputDescChange.value);
           console.log(nameField);
-          // let nameSecondInput = inputSecondNameChange.value;
-          // let ageInput = inputAgeChange.value;
-          // let empInput = inputEmpChange.value;
-          // let descInput = inputDescChange.value;
+          
 
 
-          Database.update.name(ArrayFind, ArrayFind.id, nameField);
-          Database.update.secondName(ArrayFind, ArrayFind.id, secondNameField);
-          Database.update.age(ArrayFind, ArrayFind.id, ageField);
-          Database.update.desc(ArrayFind, ArrayFind.id, empField);
-          Database.update.emp(ArrayFind, ArrayFind.id, descField);
+          Database.update.name(Database.mainArray, ArrayFind.id, nameField);
+          Database.update.secondName(Database.mainArray, ArrayFind.id, secondNameField);
+          Database.update.age(Database.mainArray, ArrayFind.id, ageField);
+          Database.update.desc(Database.mainArray, ArrayFind.id, empField);
+          Database.update.emp(Database.mainArray, ArrayFind.id, descField);
+
           cardList.renderCard(arr, html);
           cardList.renderDesc(arr, DescHtml);
-          // nameInput.value = "";
-          // nameSecondInput.value = "";
-          // ageInput.value = "";
-          // empInput.value = "";
-          // descInput.value = "";
+
+          nameField.value = "";
+          secondNameField.value = "";
+          ageField.value = "";
+          empField.value = "";
+          descField.value = "";
           changeDialog.close();
         }
+
       });
 
     },
@@ -297,4 +301,3 @@ Cards.changeDesc.changeMain(Database.mainArray);
 
 Cards.removeBtn();
 Cards.descCard();
-console.log(Database.findObjectById(Database.mainArray, 2));
