@@ -34,6 +34,10 @@ let shareWrapper = document.querySelector(".form_share");
 let shareBtn = document.querySelector(".share_button");
 let inputShare = document.querySelector(".input_share");
 
+let searchInput = document.querySelector(".input_search");
+let searchAutoResults = document.querySelector(".autocomplete-results");
+const resultsContainer = document.querySelector('.autocomplete-results');
+
 cardList.renderCard(Database.mainArray, html);
 //Share
 let Cards = {
@@ -151,7 +155,8 @@ let Cards = {
         if (cardId) {
           Database.removeObjectById(Database.mainArray, cardId);
           cardList.renderCard(Database.mainArray, html);
-          cardList.renderDesc(Database.mainArray, DescHtml);
+          cardList.renderWelcome(DescHtml);
+          // cardList.renderDesc(Database.mainArray, DescHtml);
         }
       }
     });
@@ -162,6 +167,7 @@ let Cards = {
       if (cardId) {
         let found = Database.findObjectById(Database.mainArray, cardId);
         cardList.renderDesc(found, DescHtml);
+
       }
     });
   },
@@ -187,8 +193,20 @@ let Cards = {
         }
       });
     },
+    findObjectByName(arr, query) {
+      query = query.toLowerCase();
+      return arr.filter(item => item.name.toLowerCase().includes(query));
+    },
+    findObjectBySecondName(arr, query) {
+      query = query.toLowerCase();
+      return arr.filter(item => item.secondName.toLowerCase().includes(query));
+    },
+    findObjectByEmp(arr, query) {
+      query = query.toLowerCase();
+      return arr.filter(item => item.emp.toLowerCase().includes(query));
+    },
     // searchMain() {
-
+    //                                                To do
     // },
   },
   changeDesc: {
@@ -248,7 +266,7 @@ let Cards = {
           const ageField = inputAgeChange.value;
           const empField = inputEmpChange.value;
           const descField = inputDescChange.value;
-          
+
 
 
           Database.update.name(arr, ArrayFind.id, nameField);

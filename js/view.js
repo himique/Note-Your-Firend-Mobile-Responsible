@@ -76,7 +76,7 @@ const cardList = {
     let changeButton = document.createElement("div");
     let formButtonUpdate = document.createElement("button");
 
-    
+
     formButtonUpdate.classList.add("form_button_change_update");
     formButtonUpdate.dataset.changeUpdate = arr.id;
     changeMenu.classList.add("change_menu");
@@ -115,4 +115,21 @@ const cardList = {
 
     element.appendChild(description);
   },
-}
+  renderWelcome(element) {
+    element.innerHTML = '';
+    let description = document.createElement("div");
+    let textDesc1 = document.createElement("h2");
+    let textDesc2 = document.createElement("p");
+
+    textDesc1.classList.add("welcome_h2");
+    textDesc2.classList.add("welcome_p");
+    description.classList.add("description");
+
+    textDesc1.insertAdjacentHTML("beforeend", `Note Your Friends`);
+    textDesc2.insertAdjacentHTML("beforeend", `Select the card to see more information`);
+
+    description.appendChild(textDesc1);
+    description.appendChild(textDesc2);
+    element.appendChild(description);
+  },
+};

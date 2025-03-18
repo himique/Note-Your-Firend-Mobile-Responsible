@@ -14,10 +14,10 @@
     <div class="container">
         <div class="container_left">
             <div class="buttons_menu">
-                <div class="add_button" >+</div>
+                <div class="add_button">+</div>
                 <div class="share_button"><img src="./images/shhaarree.svg" alt="share"></div>
                 <div class="search_button"><img src="./images/sseeaarrcchh.svg" alt="search"></div>
-                
+
             </div>
             <div class="card_isolate">
                 <div class="card_container">
@@ -43,82 +43,87 @@
                 <div class="description_name">
                     <h2 class="welcome_h2">Welcome to the "Note Your Friends"</h2>
                     <p class="welcome_p">Select the card to see more information</p>
+                </div>
             </div>
         </div>
-    </div>
-    <dialog class="addCard_dialog">
-        <form class="form">
-            <h2 class="tittle_dialog_add">Add card</h2>
-            <input class="input_name" placeholder="Name" type="text">
+        <dialog class="addCard_dialog">
+            <form class="form">
+                <h2 class="tittle_dialog_add">Add card</h2>
+                <input class="input_name" placeholder="Name" type="text">
 
 
-            <input class="input_secondName" placeholder="Second name" type="text">
+                <input class="input_secondName" placeholder="Second name" type="text">
 
 
-            <input class="input_age" type="number" placeholder="Age" type="text">
+                <input class="input_age" type="number" placeholder="Age" type="text">
 
 
-            <input class="input_emp" placeholder="Employment" type="text">
+                <input class="input_emp" placeholder="Employment" type="text">
 
 
-            <input class="input_desc" placeholder="Description" type="text">
-            <div class="dialog_add_buttoms">
-                <button class="form_button_cancel" type="button" >Cancel</button>
-                <button class="form_button_change" type="button" >Add</button>
-            </div>
+                <input class="input_desc" placeholder="Description" type="text">
+                <div class="dialog_add_buttoms">
+                    <button class="form_button_cancel" type="button">Cancel</button>
+                    <button class="form_button_change" type="button">Add</button>
+                </div>
 
-        </form>
-    </dialog>
-    <dialog class="shareCard_dialog">
-        <form class="form_share">
-            <h2 class="tittle_dialog_share">Share</h2>
-            <input class="input_share" placeholder="Database key" type="text">
-            <button class="form_button_copy" type="button" >Copy</button>
-            
-            <div class="dialog_share_buttons">
-                <button class="form_button_close" type="button" >Close</button>
-                <button class="form_button_import" type="button" >Push</button>
-            </div>
+            </form>
+        </dialog>
+        <dialog class="shareCard_dialog">
+            <form class="form_share">
+                <h2 class="tittle_dialog_share">Share</h2>
+                <input class="input_share" placeholder="Database key" type="text">
+                <button class="form_button_copy" type="button">Copy</button>
 
-        </form>
-    </dialog>
-    <dialog class="searchCard_dialog">
-        <form class="form_search">
-            <h2 class="tittle_dialog_search">Search</h2>
-            <input class="input_search" placeholder="What are you looking for?" type="text">
-            <button class="form_button_search" type="button" >Search</button>
-            
-            <div class="dialog_search_buttons">
-                <button class="form_button_search_close" type="button" >Close</button>
-            </div>
-        </form>
-    </dialog>
-    <dialog class="changeCard_dialog">
-        <form class="form_change">
-            <h2 class="tittle_dialog_change">Update</h2>
-            <input class="input_name_change" placeholder="Name" type="text">
+                <div class="dialog_share_buttons">
+                    <button class="form_button_close" type="button">Close</button>
+                    <button class="form_button_import" type="button">Push</button>
+                </div>
 
+            </form>
+        </dialog>
+        <dialog class="searchCard_dialog">
+            <form class="form_search">
+                <h2 class="tittle_dialog_search">Search</h2>
+                <div class="autocomplete-container-wrapper"></div>
+                <div class="autocomplete-container">
+                    <input class="input_search" placeholder="What are you looking for?" type="text">
+                    <div class="autocomplete-results"></div>
+                </div>
+                <button class="form_button_search" type="button">Search</button>
 
-            <input class="input_secondName_change" placeholder="Second name" type="text">
-
-
-            <input class="input_age_change" type="number" placeholder="Age" type="text">
+                <div class="dialog_search_buttons">
+                    <button class="form_button_search_close" type="button">Close</button>
+                </div>
+            </form>
+        </dialog>
+        <dialog class="changeCard_dialog">
+            <form class="form_change">
+                <h2 class="tittle_dialog_change">Update</h2>
+                <input class="input_name_change" placeholder="Name" type="text">
 
 
-            <input class="input_emp_change" placeholder="Employment" type="text">
+                <input class="input_secondName_change" placeholder="Second name" type="text">
 
 
-            <input class="input_desc_change" placeholder="Description" type="text">
-            <div class="dialog_change_buttons">
-                <button class="form_button_change_cancel" type="button" >Cancel</button>
-                <button class="form_button_change_update" type="button" >Update</button>
-            </div>
-        </form>
-    </dialog>
+                <input class="input_age_change" type="number" placeholder="Age" type="text">
 
-    <script src="./js/model.js"></script>
-    <script src="./js/view.js"></script>
-    <script src="./js/controller.js"></script>
+
+                <input class="input_emp_change" placeholder="Employment" type="text">
+
+
+                <input class="input_desc_change" placeholder="Description" type="text">
+                <div class="dialog_change_buttons">
+                    <button class="form_button_change_cancel" type="button">Cancel</button>
+                    <button class="form_button_change_update" type="button">Update</button>
+                </div>
+            </form>
+        </dialog>
+
+        <script src="./js/model.js"></script>
+        <script src="./js/view.js"></script>
+        <script src="./js/controller.js"></script>
+        <script src="./js/search.js"></script>
 </body>
 
 </html>

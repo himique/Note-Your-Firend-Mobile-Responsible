@@ -1,7 +1,10 @@
 let Database = {
   mainArray: [
     { name: "Artem", secondName: "Bondarenko", age: 22, emp: "Developer", id: 1, desc: "I do, what i wanna do" },
-    { name: "Hans", secondName: "Mueller", age: 43, emp: "Waiter", id: 2, desc: "I love be a waiter" },
+    { name: "Hans", secondName: "Amamenko", age: 43, emp: "Waiter", id: 2, desc: "I love be a waiter" },
+    { name: "Artem", secondName: "Smith", age: 30, emp: "Engineer", id: 3, desc: "Building the future" },
+    { name: "Anna", secondName: "Bondarenko", age: 28, emp: "Designer", id: 4, desc: "Creating beautiful things" },
+    { name: "John", secondName: "Doe", age: 35, emp: "Developer Web", id: 5, desc: "Coding all day" },
 
   ],
   
@@ -55,51 +58,14 @@ let Database = {
     },
   },
 
-  iterate(arr) {
-    const iterator = arr.keys();
-    const a = [];
-    for (const i of iterator) {
-      a.push(i + 1);
-    }
-    return a
-  },
-
-  toEveryPart(arr) {
-    const divorced = this.iterate(arr);
-    divorced.forEach((element) => console.log(element));
-  },
-
   setId(arr) {
-    // let iterated = this.iterate(arr);
-    // let finalId = (Math.max(...iterated)) + 1;
     if (arr.length > 0) {
-      finalId = Math.max(...arr.map(item => item.id)) + 1;      //изучит подробную роботу
+      finalId = Math.max(...arr.map(item => item.id)) + 1;      
     }
     else if (arr.length === 0) {
       finalId = 1;
     }
     return finalId
-  },
-
-
-
-  prompt(name) {
-    const entered = prompt(`Enter ${name}`);
-    return entered
-  },
-
-  promptNumber(message) {
-    let input = prompt(message);
-    let number = Number(input);
-    if (input <= 0) {
-      alert("Invalid input. Please enter the number more than 0.");
-      return this.promptNumber(message);
-    }
-    else if (isNaN(number)) {
-      alert("Invalid input. Please enter a number.");
-      return this.promptNumber(message);
-    }
-    return number;
   },
 
   add(name, secondName, age, emp, id, desc) {
