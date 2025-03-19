@@ -92,10 +92,11 @@ let Cards = {
 
           const Newitems = JSON.parse(inputShare.value); // Получаем новые данные из inputShare
           Database.deleteAllItems(Database.mainArray);
+          console.log(Database.mainArray);
           arr.push(...Newitems);
           cardList.renderCard(arr, html); // Обновляем отображение карточек
+          cardList.renderWelcome(DescHtml);
           document.querySelector(".input_share").value = JSON.stringify(arr); // Обновляем значение поля "Поделиться"
-          cardList.renderDesc(Database.mainArray, DescHtml);
           shareCardDialog.close();
         }
       });
@@ -136,7 +137,7 @@ let Cards = {
           let newId = Database.setId(Database.mainArray);
           Database.add(nameInput, nameSecondInput, ageInput, empInput, newId, descInput);
           cardList.renderCard(Database.mainArray, html);
-
+          cardList.renderWelcome(DescHtml);
           document.querySelector(".input_name").value = "";
           document.querySelector(".input_secondName").value = "";
           document.querySelector(".input_age").value = "";
@@ -276,7 +277,8 @@ let Cards = {
           Database.update.emp(arr, ArrayFind.id, empField);
 
           cardList.renderCard(arr, html);
-          cardList.renderDesc(arr, DescHtml);
+          // cardList.renderDesc(arr, DescHtml);
+          cardList.renderWelcome(DescHtml);
 
           nameField.value = "";
           secondNameField.value = "";
