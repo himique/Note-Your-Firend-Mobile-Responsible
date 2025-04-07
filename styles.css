@@ -664,6 +664,7 @@ input[type=number]::-webkit-inner-spin-button {
     grid-template-columns: repeat(1, auto);
     justify-content: space-between;
 }
+
 .search_button:hover {
     opacity: 0.7;
 }
@@ -719,6 +720,7 @@ input[type=number]::-webkit-inner-spin-button {
 .input_name_change:focus {
     opacity: 0.7;
 }
+
 .input_secondName_change {
     border: none !important;
     border-radius: calc(5px * 3.74);
@@ -737,6 +739,7 @@ input[type=number]::-webkit-inner-spin-button {
 .input_secondName_change:focus {
     opacity: 0.7;
 }
+
 .input_age_change {
     border: none !important;
     border-radius: calc(5px * 3.74);
@@ -755,6 +758,7 @@ input[type=number]::-webkit-inner-spin-button {
 .input_age_change:focus {
     opacity: 0.7;
 }
+
 .input_emp_change {
     border: none !important;
     border-radius: calc(5px * 3.74);
@@ -773,6 +777,7 @@ input[type=number]::-webkit-inner-spin-button {
 .input_emp_change:focus {
     opacity: 0.7;
 }
+
 .input_desc_change {
     border: none !important;
     border-radius: calc(5px * 3.74);
@@ -821,40 +826,66 @@ input[type=number]::-webkit-inner-spin-button {
 .form_button_change_cancel:hover {
     opacity: 0.7;
 }
+
 .autocomplete-container {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .autocomplete-results {
-  position: absolute;
-  border: 1px solid #ddd;
-  border-top: none;
-  z-index: 99;
-  height: 70px;
-  top: 100%;
-  left: 0;
-  right: 0;
-  max-height: 200px; /* Or any other suitable max-height */
-  overflow-y: auto;
-  background-color: white; /* Set the background color */
+    position: absolute;
+    border: 1px solid #ddd;
+    border-top: none;
+    z-index: 99;
+    height: 70px;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 200px;
+    /* Or any other suitable max-height */
+    overflow-y: auto;
+    background-color: white;
+    /* Set the background color */
 }
 
 .autocomplete-results div {
-  padding: 8px;
-  cursor: pointer;
-  height: fit-content;
-  background-color: #fff;
+    padding: 8px;
+    cursor: pointer;
+    height: fit-content;
+    background-color: #fff;
 }
 
 .autocomplete-results div:hover {
-  background-color: #e9e9e9;
+    background-color: #e9e9e9;
 }
 
 .autocomplete-selected {
-    background-color: #add8e6 !important; /* Light blue, change as desired */
+    background-color: #add8e6 !important;
+    /* Light blue, change as desired */
 }
 
+.highlight {
+    background-color: rgb(0, 119, 255) !important;
+    transition: background-color 0.5s ease-in-out;
+    background: #0b63bb;
+    border: 1px solid #0b63bb;
+
+    box-shadow: 0 0 0 0 rgba(88, 120, 243, 0.4);
+    -moz-animation: pulse 2s infinite;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(88, 120, 243, 1);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(88, 120, 243, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 50px rgba(88, 120, 243, 0);
+    }
+}
 @media screen and (max-width: 1372px) {
     .changeCard_dialog {
 
@@ -865,20 +896,23 @@ input[type=number]::-webkit-inner-spin-button {
         align-items: center;
         outline: none;
     }
+
     .form_button_change_update:active {
         opacity: 1;
     }
-    
+
     .form_button_change_update:hover {
         opacity: 1;
     }
+
     .form_button_change_cancel:active {
         opacity: 1;
     }
-    
+
     .form_button_change_cancel:hover {
         opacity: 1;
     }
+
     .change_button:hover {
         opacity: 1;
     }
@@ -886,6 +920,7 @@ input[type=number]::-webkit-inner-spin-button {
     .change_button:active {
         opacity: 1;
     }
+
     .change_button {
         height: 30px;
         line-height: 30px;
@@ -896,6 +931,7 @@ input[type=number]::-webkit-inner-spin-button {
         height: 15px;
         width: 15px;
     }
+
     .share_button {
         height: 30px;
         line-height: 30px;
