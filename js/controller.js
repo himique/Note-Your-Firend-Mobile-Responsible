@@ -180,6 +180,7 @@ let Cards = {
       menuAddContainer.addEventListener('click', function (event) {
         if (searchMenuBtn.contains(event.target)) {
           searchCardDialog.showModal();
+          searchInput.value = '';
         }
       })
     },
@@ -187,6 +188,7 @@ let Cards = {
       searchButtons.addEventListener('click', function (event) {
         if (event.target.classList.contains('form_button_search_close')) {
           searchCardDialog.close();
+          searchInput.value = '';
         }
       })
     },
@@ -194,46 +196,12 @@ let Cards = {
       searchCardDialog.addEventListener('click', function (event) {
         if (!formSearch.contains(event.target)) {
           searchCardDialog.close();
+          searchInput.value = '';
         }
       });
     },
-    findObjectByName(arr, query) {
-      query = query.toLowerCase();
-      return arr.filter(item => item.name.toLowerCase().includes(query));
-    },
-    findObjectBySecondName(arr, query) {
-      query = query.toLowerCase();
-      return arr.filter(item => item.secondName.toLowerCase().includes(query));
-    },
-    findObjectByEmp(arr, query) {
-      query = query.toLowerCase();
-      return arr.filter(item => item.emp.toLowerCase().includes(query));
-    },
-    getSuggestions(arr, query) {
-      let results = [];
-      if (query.length > 0) {
-        results = results.concat(arr.filter(item =>
-          item.name.toLowerCase().startsWith(query.toLowerCase()) ||
-          item.secondName.toLowerCase().startsWith(query.toLowerCase()) ||
-          item.emp.toLowerCase().startsWith(query.toLowerCase())
-        ));
-        results = results.concat(this.findObjectByName(arr, query));
-        results = results.concat(this.findObjectBySecondName(arr, query));
-        results = results.concat(this.findObjectByEmp(arr, query));
-      }
-      const uniqueSuggestions = [];
-      const idsSeen = new Set();
-      for (const item of results) {
-        if (!idsSeen.has(item.id)) {
-          idsSeen.add(item.id);
-          uniqueSuggestions.push({
-            suggestionString: `${item.name} ${item.secondName} (${item.emp})`,
-            id: item.id
-          });
-        }
-      }
-      return uniqueSuggestions;
-    },
+
+
     displaySuggestions(suggestions, resultsContainer) {
       let currentlyHighlightedElement = '';
       resultsContainer.innerHTML = ''; // Очистка предыдущих результатов
@@ -243,18 +211,17 @@ let Cards = {
         return;
       }
 
+
       suggestions.forEach((suggestion, index) => { // Добавляем index
         const div = document.createElement('div');
-
         div.classList.add("info-card"); // Используем тот же класс
-        div.textContent = suggestion.suggestionString;
+        div.textContent = `${suggestion.name} ${suggestion.secondName} (${suggestion.emp})`;
         div.dataset.id = suggestion.id;
         div.dataset.index = index;
         idToScroll = div.dataset.id;// <<< Добавляем data-index для навигации
 
         div.addEventListener('click', function (event) {
           DescHtml.innerHTML = '';
-          searchInput.value = suggestion.suggestionString.split(" (")[0];
           resultsContainer.style.display = 'none';
           resultsContainer.innerHTML = ''; // Очистка после клика
           if (event.target.classList.contains('info-card')) {
@@ -281,12 +248,7 @@ let Cards = {
               });
             }
             let currentItem = Database.findObjectById(Database.mainArray, actualId);
-
             cardList.renderDesc(currentItem, DescHtml);
-            elementToScroll.classList.add('highlight');
-
-
-            // Убрать подсветку через 1.5 секунды
 
 
           }
@@ -303,215 +265,204 @@ let Cards = {
                 !docEvent.target.classList.contains('info-card') &&
                 !DescHtml.contains(docEvent.target)
               ) {
-                
+
                 currentlyHighlightedElement.classList.remove('highlight');
                 currentlyHighlightedElement = null; // <-- ОБЯЗАТЕЛЬНО сбрасываем состояние
               }
               documentClickListenerAdded = true;
-            
-          });
-        // Вместо searchInput.focus() лучше оставить фокус как есть или вернуть на input
-        searchInput.focus();
-        searchInput.value = ''; // Можно убрать, если мешает
-        // --- Возможно, здесь нужно вызвать поиск или отображение описания найденной карточки ---
-        // Например:
-        // const foundCard = Database.findObjectById(Database.mainArray, suggestion.id);
-        // if (foundCard) cardList.renderDesc(foundCard, DescHtml);
-        // searchCardDialog.close();
+
+            });
+            // Вместо searchInput.focus() лучше оставить фокус как есть или вернуть на input
+            searchInput.focus();
+
+
+          }
+        });
+        resultsContainer.appendChild(div);
+      });
+
+
+      resultsContainer.style.display = 'block';
+    },
+
+
+
+    searchMain(arr) {
+      let selectedIndex = -1; // Индекс выбранной подсказки (-1 = ничего не выбрано)
+
+      // Обработчик ввода текста
+      searchInput.addEventListener('input', function () {
+        const query = this.value;
+        const suggestions = Database.searchAdvisor(arr, query);
+        // const suggestions = Cards.searchCard.getSuggestions(arr, query);
+        console.log(suggestions);
+        console.log(Database.searchAdvisor(arr, query));
+        Cards.searchCard.displaySuggestions(suggestions, resultsContainer);
+        selectedIndex = -1; // Сброс индекса при новом вводе
+      });
+      // Обработчик нажатия клавиш в поле ввода
+      searchInput.addEventListener('keydown', function (event) {
+        // Получаем *актуальный* список элементов подсказок
+        const suggestionElements = resultsContainer.querySelectorAll('.info-card');
+
+        // Если подсказок нет, ничего не делаем для стрелок/Enter
+        if (suggestionElements.length === 0 && (event.key === 'ArrowDown' || event.key === 'ArrowUp' || event.key === 'Enter')) {
+
+          return;
+        }
+
+        let newIndex = selectedIndex;
+        switch (event.key) {
+          case 'ArrowDown':
+            event.preventDefault(); // Предотвращаем стандартную прокрутку страницы
+            if (selectedIndex === -1) {
+              newIndex = 0; // Выбираем первый элемент
+            } else {
+              newIndex = (selectedIndex + 1) % suggestionElements.length; // Переход вниз с зацикливанием
+            }
+            break
+          case 'ArrowUp':
+            event.preventDefault(); // Предотвращаем стандартную прокрутку страницы
+            if (selectedIndex === -1) {
+              newIndex = suggestionElements.length - 1; // Выбираем последний элемент
+            } else {
+              // Переход вверх с зацикливанием (правильная обработка отрицательного остатка)
+              newIndex = (selectedIndex - 1 + suggestionElements.length) % suggestionElements.length;
+            }
+            break
+          case 'Enter':
+            event.preventDefault(); // Предотвращаем отправку формы, если она есть
+            if (selectedIndex !== -1) {
+              // Имитируем клик по выбранному элементу
+              const selectedSuggestionElement = suggestionElements[selectedIndex];
+              if (selectedSuggestionElement) {
+                selectedSuggestionElement.click(); // Вызываем обработчик клика, который уже есть
+              }
+              // Важно: обработчик клика уже скрывает resultsContainer и очищает его
+            } else {
+              // Опционально: если Enter нажат без выбора, можно выполнить поиск по текущему тексту в input
+              // Здесь может быть логика поиска и отображения результатов
+              event.preventDefault();
+              resultsContainer.style.display = 'none';
+              resultsContainer.innerHTML = '';
+            }
+            break
+          case 'Escape':
+            event.preventDefault();
+            resultsContainer.style.display = 'none';
+            resultsContainer.innerHTML = '';
+            selectedIndex = -1; // Сбрасываем выбор при Escape
+            break // Выход после Escape
+          default:
+            break
+        }
+        // Обновляем выбор и прокрутку, только если индекс изменился
+        if (newIndex !== selectedIndex) {
+          selectedIndex = newIndex;
+          Database.updateSelection(suggestionElements, selectedIndex); // Обновляем классы
+          const selectedCard = suggestionElements[selectedIndex];
+          if (selectedCard) {
+            // Прокручиваем выбранный элемент в видимую область контейнера
+            selectedCard.scrollIntoView({
+              behavior: 'auto', // или 'auto' для мгновенной прокрутки
+              block: 'nearest'   // 'start', 'center', 'end', или 'nearest'
+            });
+          }
         }
       });
-      resultsContainer.appendChild(div);
-    });
-    
-
-  resultsContainer.style.display = 'block';
-},
-
-  searchMain(arr) {
-    let selectedIndex = -1; // Индекс выбранной подсказки (-1 = ничего не выбрано)
-
-    // Обработчик ввода текста
-    searchInput.addEventListener('input', function () {
-      const query = this.value;
-      const suggestions = Cards.searchCard.getSuggestions(arr, query);
-      Cards.searchCard.displaySuggestions(suggestions, resultsContainer);
-      selectedIndex = -1; // Сброс индекса при новом вводе
-    });
-
-    // Обработчик нажатия клавиш в поле ввода
-    searchInput.addEventListener('keydown', function (event) {
-      // Получаем *актуальный* список элементов подсказок
-      const suggestionElements = resultsContainer.querySelectorAll('.info-card');
-
-      // Если подсказок нет, ничего не делаем для стрелок/Enter
-      if (suggestionElements.length === 0 && (event.key === 'ArrowDown' || event.key === 'ArrowUp' || event.key === 'Enter')) {
-        return;
-      }
-
-      let newIndex = selectedIndex;
-
-      if (event.key === 'ArrowDown') {
-        event.preventDefault(); // Предотвращаем стандартную прокрутку страницы
-        if (selectedIndex === -1) {
-          newIndex = 0; // Выбираем первый элемент
-        } else {
-          newIndex = (selectedIndex + 1) % suggestionElements.length; // Переход вниз с зацикливанием
-        }
-      } else if (event.key === 'ArrowUp') {
-        event.preventDefault(); // Предотвращаем стандартную прокрутку страницы
-        if (selectedIndex === -1) {
-          newIndex = suggestionElements.length - 1; // Выбираем последний элемент
-        } else {
-          // Переход вверх с зацикливанием (правильная обработка отрицательного остатка)
-          newIndex = (selectedIndex - 1 + suggestionElements.length) % suggestionElements.length;
-        }
-      } else if (event.key === 'Enter') {
-        event.preventDefault(); // Предотвращаем отправку формы, если она есть
-        if (selectedIndex !== -1) {
-          // Имитируем клик по выбранному элементу
-          const selectedSuggestionElement = suggestionElements[selectedIndex];
-          if (selectedSuggestionElement) {
-            selectedSuggestionElement.click(); // Вызываем обработчик клика, который уже есть
-          }
-          // Важно: обработчик клика уже скрывает resultsContainer и очищает его
-        } else {
-          // Опционально: если Enter нажат без выбора, можно выполнить поиск по текущему тексту в input
-          console.log("Выполнить поиск по:", searchInput.value);
-          // Здесь может быть логика поиска и отображения результатов
-          resultsContainer.style.display = 'none';
-          resultsContainer.innerHTML = '';
-        }
-        return; // Выход после Enter
-      } else if (event.key === "Escape") {
-        event.preventDefault();
-        resultsContainer.style.display = 'none';
-        resultsContainer.innerHTML = '';
-        selectedIndex = -1; // Сбрасываем выбор при Escape
-        return; // Выход после Escape
-      } else {
-        // Для других клавиш (буквы, цифры и т.д.) ничего не делаем здесь,
-        // сработает обработчик 'input'
-        return;
-      }
-
-      // Обновляем выбор и прокрутку, только если индекс изменился
-      if (newIndex !== selectedIndex) {
-        selectedIndex = newIndex;
-        Cards.searchCard.updateSelection(suggestionElements, selectedIndex); // Обновляем классы
-        const selectedCard = suggestionElements[selectedIndex];
-        if (selectedCard) {
-          // Прокручиваем выбранный элемент в видимую область контейнера
-          selectedCard.scrollIntoView({
-            behavior: 'auto', // или 'auto' для мгновенной прокрутки
-            block: 'nearest'   // 'start', 'center', 'end', или 'nearest'
-          });
-        }
-      }
-    });
-  },
+    },
     suggestorToClose() {
-  document.addEventListener('click', function (event) {
-    // Закрывать, только если клик НЕ внутри контейнера автозаполнения И НЕ по самому инпуту
-    if (!event.target.closest('.autocomplete-container') && event.target !== searchInput) {
-      resultsContainer.style.display = 'none';
-    }
-  });
-},
-updateSelection(suggestionsNodeList, index) {
-  // Преобразуем NodeList в массив для удобства (хотя и NodeList подходит для forEach)
-  const suggestions = Array.from(suggestionsNodeList);
-  suggestions.forEach((suggestion, i) => {
-    if (i === index) {
-      suggestion.classList.add('autocomplete-selected');
-    } else {
-      suggestion.classList.remove('autocomplete-selected');
-    }
-  });
-}
+      document.addEventListener('click', function (event) {
+        // Закрывать, только если клик НЕ внутри контейнера автозаполнения И НЕ по самому инпуту
+        if (!event.target.closest('.autocomplete-container') && event.target !== searchInput) {
+          resultsContainer.style.display = 'none';
+        }
+      });
+    },
   },
-changeDesc: {
-  changeToShow(arr) {
-    DescHtml.addEventListener('click', function (event) {
-      let target = event.target;
-      // Проходим по родителям, пока не дойдем до card_isolate или не найдем change_button
-      while (target && !target.classList.contains('description_container')) {
-        if (target.classList.contains('change_button')) {
-          const cardId = parseInt(target.dataset.changeId);
+  changeDesc: {
+    changeToShow(arr) {
+      DescHtml.addEventListener('click', function (event) {
+        let target = event.target;
+        // Проходим по родителям, пока не дойдем до card_isolate или не найдем change_button
+        while (target && !target.classList.contains('description_container')) {
+          if (target.classList.contains('change_button')) {
+            const cardId = parseInt(target.dataset.changeId);
 
-          updateButton.dataset.changeId = cardId;
-          let ArrayFind = Database.findObjectById(arr, cardId);
-          inputNameChange.value = ArrayFind.name;
-          inputSecondNameChange.value = ArrayFind.secondName;
-          inputAgeChange.value = ArrayFind.age;
-          inputEmpChange.value = ArrayFind.emp;
-          inputDescChange.value = ArrayFind.desc;
-          changeDialog.showModal();
-          return;
+            updateButton.dataset.changeId = cardId;
+            let ArrayFind = Database.findObjectById(arr, cardId);
+            inputNameChange.value = ArrayFind.name;
+            inputSecondNameChange.value = ArrayFind.secondName;
+            inputAgeChange.value = ArrayFind.age;
+            inputEmpChange.value = ArrayFind.emp;
+            inputDescChange.value = ArrayFind.desc;
+            changeDialog.showModal();
+            return;
+          }
+
+          target = target.parentNode;
         }
 
-        target = target.parentNode;
-      }
+      });
+    },
+    changeToClose() {
 
-    });
-  },
-  changeToClose() {
-
-    formChange.addEventListener('click', function (event) {
-      let target = event.target;
-      while (target && !target.classList.contains('changeCard_dialog')) {
-        if (target.classList.contains('form_button_change_cancel')) {
+      formChange.addEventListener('click', function (event) {
+        let target = event.target;
+        while (target && !target.classList.contains('changeCard_dialog')) {
+          if (target.classList.contains('form_button_change_cancel')) {
+            changeDialog.close();
+            return;
+          }
+          target = target.parentNode;
+        }
+      });
+    },
+    changeToCloseByScreen() {
+      changeDialog.addEventListener('click', function (event) {
+        if (!formChange.contains(event.target)) {
           changeDialog.close();
-          return;
         }
-        target = target.parentNode;
-      }
-    });
+      });
+    },
+    changeMain(arr) {
+
+      formChange.addEventListener('click', function (event) {
+        if (event.target.classList.contains('form_button_change_update')) {
+          const card = parseInt(event.target.dataset.changeId);
+          let ArrayFind = Database.findObjectById(arr, card);
+
+          const nameField = inputNameChange.value
+          const secondNameField = inputSecondNameChange.value;
+          const ageField = inputAgeChange.value;
+          const empField = inputEmpChange.value;
+          const descField = inputDescChange.value;
+
+
+
+          Database.update.name(arr, ArrayFind.id, nameField);
+          Database.update.secondName(arr, ArrayFind.id, secondNameField);
+          Database.update.age(arr, ArrayFind.id, ageField);
+          Database.update.desc(arr, ArrayFind.id, descField);
+          Database.update.emp(arr, ArrayFind.id, empField);
+
+          cardList.renderCard(arr, html);
+          // cardList.renderDesc(arr, DescHtml);
+          cardList.renderDesc(ArrayFind, DescHtml);
+          // cardList.renderWelcome(DescHtml);
+
+          nameField.value = "";
+          secondNameField.value = "";
+          ageField.value = "";
+          empField.value = "";
+          descField.value = "";
+          changeDialog.close();
+        }
+
+      });
+
+    },
   },
-  changeToCloseByScreen() {
-    changeDialog.addEventListener('click', function (event) {
-      if (!formChange.contains(event.target)) {
-        changeDialog.close();
-      }
-    });
-  },
-  changeMain(arr) {
-
-    formChange.addEventListener('click', function (event) {
-      if (event.target.classList.contains('form_button_change_update')) {
-        const card = parseInt(event.target.dataset.changeId);
-        let ArrayFind = Database.findObjectById(arr, card);
-
-        const nameField = inputNameChange.value
-        const secondNameField = inputSecondNameChange.value;
-        const ageField = inputAgeChange.value;
-        const empField = inputEmpChange.value;
-        const descField = inputDescChange.value;
-
-
-
-        Database.update.name(arr, ArrayFind.id, nameField);
-        Database.update.secondName(arr, ArrayFind.id, secondNameField);
-        Database.update.age(arr, ArrayFind.id, ageField);
-        Database.update.desc(arr, ArrayFind.id, descField);
-        Database.update.emp(arr, ArrayFind.id, empField);
-
-        cardList.renderCard(arr, html);
-        // cardList.renderDesc(arr, DescHtml);
-        cardList.renderDesc(ArrayFind, DescHtml);
-        // cardList.renderWelcome(DescHtml);
-
-        nameField.value = "";
-        secondNameField.value = "";
-        ageField.value = "";
-        empField.value = "";
-        descField.value = "";
-        changeDialog.close();
-      }
-
-    });
-
-  },
-},
 }
 
 Cards.addCard.addToShow();

@@ -361,6 +361,32 @@ let Database = {
       i++;
     }
   },
+  searchAdvisor(dataList, query) {
+    const searchTerms = query.trim().toLowerCase().split(' ').filter(term => term !== '');
+    if (searchTerms.length === 0) {
+      return [];
+    }
+    const results = dataList.filter(item => {
+      // 3. Создание строки со всеми значениями для поиска (в нижнем регистре)
+      //    ID преобразуется в строку для поиска
+      const searchableContent = `${item.id} ${item.name} ${item.secondName} ${item.emp}`.toLowerCase();
 
+      // 4. Проверка, содержит ли элемент ВСЕ термины из запроса
+      //    Используем метод every(), который вернет true, только если все элементы массива удовлетворяют условию
+      return searchTerms.every(term => searchableContent.includes(term));
+    });
 
+    return results;
+  },
+  updateSelection(suggestionsNodeList, index) {
+    // Преобразуем NodeList в массив для удобства (хотя и NodeList подходит для forEach)
+    const suggestions = Array.from(suggestionsNodeList);
+    suggestions.forEach((suggestion, i) => {
+      if (i === index) {
+        suggestion.classList.add('autocomplete-selected');
+      } else {
+        suggestion.classList.remove('autocomplete-selected');
+      }
+    });
+  },
 }
