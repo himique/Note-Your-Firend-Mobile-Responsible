@@ -147,6 +147,7 @@ let Cards = {
           document.querySelector(".input_emp").value = "";
           document.querySelector(".input_desc").value = "";
           dialog.close();
+          
         }
       });
 
